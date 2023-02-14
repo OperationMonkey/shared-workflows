@@ -1,0 +1,43 @@
+name: Publish NPM
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        default: 16
+        type: number
+        required: false
+      workspace:
+        default: ''
+        type: string
+        required: false
+
+jobs:
+  publish_npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        if: ${{ inputs.workspace == '' }}
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version: ${{ inputs.node_version }}
+      - name: Setup Node workspace
+        if: ${{ inputs.workspace != '' }}
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: ${{ inputs.workspace }}/package-lock.json
+          node-version: ${{ inputs.node_version }}
+      # we need to set secrets to publish package
+      - run: npm ci
+      - name: Publish
+        if: ${{ inputs.workspace == '' }}
+        run: |
+          npm publish --dry-run
+      - name: Publish workspace
+        if: ${{ inputs.workspace != '' }}
+        run: |
+          npm publish -w ${{ inputs.workspace }} --dry-run
