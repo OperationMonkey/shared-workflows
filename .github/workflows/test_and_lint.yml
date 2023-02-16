@@ -6,8 +6,8 @@ on:
   workflow_call:
     inputs: 
       node_version:
-        default: 16
-        type: number
+        default: '16'
+        type: string
         required: false
 
 jobs:

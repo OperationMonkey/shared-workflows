@@ -12,7 +12,7 @@ Official [documentation](https://docs.github.com/en/actions/using-workflows/reus
 
 | input name | type   | required | default |
 |------------|--------|----------|---------|
-|node_version| number | false    | 16      |
+|node_version| string | false    | 16      |
 
 Example: 
 
@@ -26,7 +26,7 @@ jobs:
 
 | input name | type   | required | default |
 |------------|--------|----------|---------|
-|node_version| number | false    | 16      |
+|node_version| string | false    | 16      |
 |workspace   | string | false    |         |
 
 Example:
@@ -36,6 +36,6 @@ jobs:
   publish_npm:
     uses: OperationMonkey/shared-workflows/.github/workflows/publish_npm.yml@main
     with:
-      node_version: 18
       workspace: packages/tsconfig
+    secrets: inherit
 ```

@@ -4,8 +4,8 @@ on:
   workflow_call:
     inputs:
       node_version:
-        default: 16
-        type: number
+        default: '16'
+        type: string
         required: false
       workspace:
         default: ''
@@ -19,25 +19,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node
-        if: ${{ inputs.workspace == '' }}
         uses: actions/setup-node@v3
         with:
           cache: 'npm'
           node-version: ${{ inputs.node_version }}
-      - name: Setup Node workspace
-        if: ${{ inputs.workspace != '' }}
-        uses: actions/setup-node@v3
-        with:
-          cache: 'npm'
-          cache-dependency-path: ${{ inputs.workspace }}/package-lock.json
-          node-version: ${{ inputs.node_version }}
-      # we need to set secrets to publish package
+          registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - name: Publish
         if: ${{ inputs.workspace == '' }}
+        env: 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish --dry-run
       - name: Publish workspace
         if: ${{ inputs.workspace != '' }}
+        env: 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish -w ${{ inputs.workspace }} --dry-run
