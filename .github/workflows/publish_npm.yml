@@ -30,10 +30,10 @@ jobs:
         env: 
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish --dry-run
+          npm publish
       - name: Publish workspace
         if: ${{ inputs.workspace != '' }}
         env: 
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish -w ${{ inputs.workspace }} --dry-run
+          npm publish -w ${{ inputs.workspace }}
