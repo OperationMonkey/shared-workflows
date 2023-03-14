@@ -12,7 +12,7 @@ Official [documentation](https://docs.github.com/en/actions/using-workflows/reus
 
 | input name | type   | required | default |
 |------------|--------|----------|---------|
-|node_version| string | false    | 16      |
+|node_version| string | false    | 18      |
 
 Example: 
 
@@ -26,7 +26,7 @@ jobs:
 
 | input name | type   | required | default |
 |------------|--------|----------|---------|
-|node_version| string | false    | 16      |
+|node_version| string | false    | 18      |
 |workspace   | string | false    |         |
 
 Example:
