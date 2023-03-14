@@ -6,7 +6,7 @@ on:
   workflow_call:
     inputs: 
       node_version:
-        default: '16'
+        default: '18'
         type: string
         required: false
 
