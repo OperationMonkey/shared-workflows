@@ -4,9 +4,9 @@ name: Lint, test and build
 
 on:
   workflow_call:
-    inputs: 
+    inputs:
       node_version:
-        default: '18'
+        default: "20"
         type: string
         required: false
 
@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: "npm"
           node-version: ${{ inputs.node_version }}
       - name: install
         run: npm ci
@@ -30,4 +30,3 @@ jobs:
         run: npm audit --audit-level=high
       - name: build
         run: npm run build
-
